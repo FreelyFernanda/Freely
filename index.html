@@ -63,9 +63,9 @@
 <div id="sliders"></div>
 
 <button onclick="calculateScore()">Calculate FREELY Score</button>
-
+<button onclick="analyzeDecision()">Analyze with FREELY AI</button>
 <div id="result"></div>
-
+<div id="aiResult" style="margin-top:20px; white-space:pre-wrap;"></div>
 </div>
 
 <script>
@@ -119,8 +119,60 @@ function calculateScore() {
     `FREELY Score: ${score}<br>
      Status: <span style="color:${color}">${status}</span>`;
 }
+async function analyzeDecision() {
 
+  const decision =
+    document.getElementById("decision").value;
+
+  let scores = [];
+
+  for(let i=0;i<principles.length;i++){
+    scores.push(
+      principles[i] + ": " +
+      document.getElementById("s"+i).value
+    );
+  }
+
+  const prompt = `
+You are FREELY, a biomimicry decision intelligence system.
+
+Decision:
+${decision}
+
+Scores:
+${scores.join("\n")}
+
+Explain:
+- resilience impact
+- biomimicry alignment
+- ethical consequences
+- long-term survival outlook
+
+Be clear, strategic, and concise.
+`;
+
+  const response = await fetch(
+    "https://api.openai.com/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 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"
+      },
+      body: JSON.stringify({
+        model: "gpt-4o-mini",
+        messages: [{role:"user",content:prompt}]
+      })
+    }
+  );
+
+  const data = await response.json();
+
+  document.getElementById("aiResult").innerText =
+    data.choices[0].message.content;
+}
 </script>
 
 </body>
 </html>
+
