@@ -59,8 +59,29 @@
 
 <label>Decision:</label>
 <input id="decision" placeholder="Enter decision being evaluated">
+<!-- Decision Input -->
+<label for="decision">Enter your decision:</label><br>
+<textarea id="decision" rows="3" cols="50" placeholder="Type a decision here"></textarea>
+<br><br>
 
-<div id="sliders"></div>
+<!-- Sliders for FREELY principles -->
+<div id="sliders">
+  <label>Principle 1:</label>
+  <input type="range" min="0" max="10" value="5" id="s0"><br>
+  
+  <label>Principle 2:</label>
+  <input type="range" min="0" max="10" value="5" id="s1"><br>
+  
+  <label>Principle 3:</label>
+  <input type="range" min="0" max="10" value="5" id="s2"><br>
+  
+  <label>Principle 4:</label>
+  <input type="range" min="0" max="10" value="5" id="s3"><br>
+  
+  <label>Principle 5:</label>
+  <input type="range" min="0" max="10" value="5" id="s4"><br>
+</div>
+<br><div id="sliders"></div>
 
 <button onclick="calculateScore()">Calculate FREELY Score</button>
 <button onclick="analyzeDecision()">Analyze with FREELY AI</button>
@@ -172,6 +193,7 @@ document.getElementById("aiResult").innerText =
 
 </body>
 </html>
+
 
 
 
